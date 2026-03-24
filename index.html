@@ -47,6 +47,7 @@
             box-shadow: 8px 8px 0px 0px #f26b21;
         }
     </style>
+    <script src="https://js.stripe.com/v3/"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -104,7 +105,7 @@
     <nav class="bg-white border-b-2 border-slate-200 sticky top-0 z-40 shadow-sm">
         <div class="max-w-6xl mx-auto px-6 py-3 flex justify-center md:justify-between items-center">
             <div class="flex justify-center w-full md:w-auto">
-                <img src="header_logo (1).webp" alt="TaggleFish Marketing" class="h-12 md:h-16 object-contain">
+                <img src="images/logo.png" alt="TaggleFish Marketing" class="h-12 md:h-16 object-contain">
             </div>
             <div class="hidden md:flex items-center gap-4">
                 <div class="text-sm font-black text-brand-900 uppercase tracking-widest bg-brand-50 px-5 py-2.5 rounded-md border-2 border-brand-200 shadow-[4px_4px_0_0_#d8ebf9]">
@@ -340,9 +341,9 @@
                             <span class="text-9xl font-black text-action-600 tracking-tighter leading-none">599</span>
                         </div>
                        
-                        <a href="#" class="block w-full bg-action-500 hover:bg-action-600 text-white py-6 md:py-8 rounded-2xl font-black text-3xl md:text-4xl uppercase tracking-wide transition-all shadow-[0_8px_0_0_#cc4b0b] hover:shadow-[0_2px_0_0_#cc4b0b] hover:translate-y-[6px] active:translate-y-[6px] active:shadow-[0_2px_0_0_#cc4b0b] border-4 border-action-700 mb-6">
+                        <button id="checkout-btn" class="block w-full bg-action-500 hover:bg-action-600 text-white py-6 md:py-8 rounded-2xl font-black text-3xl md:text-4xl uppercase tracking-wide transition-all shadow-[0_8px_0_0_#cc4b0b] hover:shadow-[0_2px_0_0_#cc4b0b] hover:translate-y-[6px] active:translate-y-[6px] active:shadow-[0_2px_0_0_#cc4b0b] border-4 border-action-700 mb-6 cursor-pointer disabled:opacity-50 disabled:cursor-wait">
                             Claim $599 Setup
-                        </a>
+                        </button>
 
 
                         <div class="flex items-center justify-center gap-4">
@@ -358,18 +359,144 @@
         </section>
 
 
+        <!-- Guarantee Section -->
+        <section class="py-16 px-6 bg-green-50 border-y-4 border-green-200">
+            <div class="max-w-3xl mx-auto text-center">
+                <div class="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full border-4 border-green-300 mb-6">
+                    <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-black text-brand-900 mb-4">100% Money-Back Guarantee</h2>
+                <p class="text-lg text-slate-600 font-medium max-w-2xl mx-auto">If you're not completely satisfied with your website within 14 days of delivery, we'll refund every penny. No questions asked. We take on the risk so you don't have to.</p>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="py-24 px-6 bg-white">
+            <div class="max-w-3xl mx-auto">
+                <div class="text-center mb-16">
+                    <p class="text-action-600 font-black text-xl uppercase tracking-widest mb-4">Common Questions</p>
+                    <h2 class="text-4xl md:text-5xl font-black text-brand-900 tracking-tight">Before You Decide</h2>
+                </div>
+
+                <div class="space-y-4">
+                    <details class="bg-slate-50 border-2 border-slate-200 rounded-xl overflow-hidden group">
+                        <summary class="p-6 font-black text-lg text-brand-900 cursor-pointer flex justify-between items-center hover:bg-slate-100 transition-colors">
+                            How long does it take to build my site?
+                            <span class="text-action-500 text-2xl group-open:rotate-45 transition-transform">+</span>
+                        </summary>
+                        <div class="px-6 pb-6 text-slate-600 font-medium">Most sites are fully built and live within 5-7 business days. We'll send you a preview link before going live so you can request changes.</div>
+                    </details>
+
+                    <details class="bg-slate-50 border-2 border-slate-200 rounded-xl overflow-hidden group">
+                        <summary class="p-6 font-black text-lg text-brand-900 cursor-pointer flex justify-between items-center hover:bg-slate-100 transition-colors">
+                            I already have a website. Can you replace it?
+                            <span class="text-action-500 text-2xl group-open:rotate-45 transition-transform">+</span>
+                        </summary>
+                        <div class="px-6 pb-6 text-slate-600 font-medium">Absolutely. We'll build your new site and handle the migration. Your old site stays live until the new one is ready to launch.</div>
+                    </details>
+
+                    <details class="bg-slate-50 border-2 border-slate-200 rounded-xl overflow-hidden group">
+                        <summary class="p-6 font-black text-lg text-brand-900 cursor-pointer flex justify-between items-center hover:bg-slate-100 transition-colors">
+                            Do I own the website?
+                            <span class="text-action-500 text-2xl group-open:rotate-45 transition-transform">+</span>
+                        </summary>
+                        <div class="px-6 pb-6 text-slate-600 font-medium">Yes, 100%. You own all the code, content, and assets. If you ever want to leave, the site is yours to take. No lock-in contracts.</div>
+                    </details>
+
+                    <details class="bg-slate-50 border-2 border-slate-200 rounded-xl overflow-hidden group">
+                        <summary class="p-6 font-black text-lg text-brand-900 cursor-pointer flex justify-between items-center hover:bg-slate-100 transition-colors">
+                            What's the catch? Why is it only $599?
+                            <span class="text-action-500 text-2xl group-open:rotate-45 transition-transform">+</span>
+                        </summary>
+                        <div class="px-6 pb-6 text-slate-600 font-medium">No catch. The $599 covers your custom website build. We make our long-term revenue from the optional Taggle OS backend services (content, SEO, leads). The website is our handshake — we earn your trust by delivering results first.</div>
+                    </details>
+
+                    <details class="bg-slate-50 border-2 border-slate-200 rounded-xl overflow-hidden group">
+                        <summary class="p-6 font-black text-lg text-brand-900 cursor-pointer flex justify-between items-center hover:bg-slate-100 transition-colors">
+                            Is there a monthly fee?
+                            <span class="text-action-500 text-2xl group-open:rotate-45 transition-transform">+</span>
+                        </summary>
+                        <div class="px-6 pb-6 text-slate-600 font-medium">The $599 is a one-time payment for the website build. Hosting and optional Taggle OS services are separate, but the site itself is yours forever.</div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
     </main>
 
 
     <footer class="bg-brand-950 py-10 text-center border-t-2 border-brand-900">
         <div class="flex justify-center mb-6">
-            <img src="header_logo (1).webp" alt="TaggleFish Marketing" class="h-10 opacity-40 grayscale hover:grayscale-0 transition-all">
+            <img src="images/logo.png" alt="TaggleFish Marketing" class="h-10 opacity-40 grayscale hover:grayscale-0 transition-all">
         </div>
         <p class="text-brand-400 font-bold text-sm">
             &copy; 2026 TaggleFish Marketing. All rights reserved.
         </p>
     </footer>
 
+
+    <!-- Stripe Checkout Integration -->
+    <script>
+        // ============================================================
+        // STRIPE SETUP — Replace these values with your own
+        // ============================================================
+        // 1. Go to https://dashboard.stripe.com/apikeys
+        // 2. Copy your PUBLISHABLE key (starts with pk_live_ or pk_test_)
+        // 3. Paste it below
+        const STRIPE_PUBLISHABLE_KEY = 'pk_test_REPLACE_WITH_YOUR_KEY';
+
+        // 4. Create a Payment Link or Checkout Session in Stripe Dashboard:
+        //    - Go to https://dashboard.stripe.com/payment-links
+        //    - Create a link for $599 one-time payment
+        //    - Copy the Price ID (starts with price_)
+        const STRIPE_PRICE_ID = 'price_REPLACE_WITH_YOUR_PRICE_ID';
+
+        // Option A: Stripe Checkout (requires a backend endpoint)
+        // Option B: Stripe Payment Links (no backend needed — recommended)
+        // ============================================================
+
+        const checkoutBtn = document.getElementById('checkout-btn');
+
+        checkoutBtn.addEventListener('click', async function() {
+            // ── OPTION B: Payment Link (simplest — no backend) ──
+            // Uncomment the line below and replace with your Stripe Payment Link URL:
+            // window.location.href = 'https://buy.stripe.com/REPLACE_WITH_YOUR_LINK';
+            // return;
+
+            // ── OPTION A: Stripe Checkout Session (needs backend) ──
+            checkoutBtn.disabled = true;
+            checkoutBtn.textContent = 'Redirecting...';
+
+            try {
+                const stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
+
+                // Call your backend to create a Checkout Session
+                const response = await fetch('/api/create-checkout-session', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ priceId: STRIPE_PRICE_ID })
+                });
+
+                const session = await response.json();
+
+                // Redirect to Stripe Checkout
+                const result = await stripe.redirectToCheckout({
+                    sessionId: session.id
+                });
+
+                if (result.error) {
+                    alert(result.error.message);
+                }
+            } catch (err) {
+                // Fallback: If no backend is set up yet, show instructions
+                alert('Payment is not configured yet. Set up your Stripe keys in index.html — see the script at the bottom of the file for instructions.');
+                console.error('Stripe error:', err);
+            } finally {
+                checkoutBtn.disabled = false;
+                checkoutBtn.textContent = 'Claim $599 Setup';
+            }
+        });
+    </script>
 
 </body>
 </html>
