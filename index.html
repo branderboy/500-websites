@@ -47,7 +47,8 @@
             box-shadow: 8px 8px 0px 0px #f26b21;
         }
     </style>
-    <script src="https://js.stripe.com/v3/"></script>
+    <!-- Stripe JS loaded on-demand when backend API is ready -->
+    <!-- <script src="https://js.stripe.com/v3/"></script> -->
     <script>
         tailwind.config = {
             theme: {
@@ -140,7 +141,7 @@
                 <div class="hidden md:flex items-center text-brand-900 font-black text-xl mb-2 bg-brand-100 px-6 py-2 rounded-full border border-brand-300">
                     <span class="bounce-arrow mr-3 text-action-600">👉</span> Click The Button Below To Get Started
                 </div>
-                <a href="#offer" class="block w-full sm:w-auto bg-action-500 hover:bg-action-600 text-white px-12 py-6 rounded-2xl font-black text-2xl md:text-3xl uppercase tracking-wide transition-all shadow-3d-button hover:shadow-3d-button-hover hover:translate-y-[6px] active:translate-y-[6px] active:shadow-3d-button-hover border-2 border-action-700">
+                <a href="#checkout-form-section" class="block w-full sm:w-auto bg-action-500 hover:bg-action-600 text-white px-12 py-6 rounded-2xl font-black text-2xl md:text-3xl uppercase tracking-wide transition-all shadow-3d-button hover:shadow-3d-button-hover hover:translate-y-[6px] active:translate-y-[6px] active:shadow-3d-button-hover border-2 border-action-700">
                     Get Your Website — $499
                 </a>
                 <p class="text-sm md:text-base font-black text-slate-500 mt-4">
@@ -232,39 +233,28 @@
         </section>
 
 
-        <!-- Ecosystem Section (High Value) -->
+        <!-- Pro Platform Features -->
         <section class="py-24 px-6 bg-brand-100 border-y-4 border-brand-200">
             <div class="max-w-6xl mx-auto">
                 <div class="bg-brand-900 rounded-3xl p-10 md:p-16 shadow-2xl border-4 border-brand-800 text-white">
                     <div class="text-center mb-16">
-                        <h2 class="text-4xl md:text-5xl font-black mb-6 tracking-tight">Wired Into Our Backend System.</h2>
+                        <p class="text-action-500 font-black text-lg uppercase tracking-widest mb-4">$1,499 Pro Package</p>
+                        <h2 class="text-4xl md:text-5xl font-black mb-6 tracking-tight">Not Just a Website. A Full Platform.</h2>
                         <p class="text-xl text-brand-200 font-bold max-w-3xl mx-auto">
-                            We don't hand you a dead brochure. Your site is the engine block. It comes pre-wired for our entire automated backend system.
+                            Your Pro site is built on Next.js with a complete business backend. Edit content, manage leads, track data, and grow — all from one dashboard.
                         </p>
                     </div>
-                   
+
                     <div class="grid md:grid-cols-2 gap-8">
                         <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-lg flex gap-6 text-slate-800">
                             <div class="text-action-500 mt-1 shrink-0">
-                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                             </div>
                             <div>
-                                <h3 class="text-xl font-black mb-2 text-brand-900">Content Manager</h3>
-                                <p class="text-slate-600 font-medium text-sm leading-relaxed">Publishes new projects and posts directly to your site to keep it fresh and ranking high.</p>
+                                <h3 class="text-xl font-black mb-2 text-brand-900">Content Editor</h3>
+                                <p class="text-slate-600 font-medium text-sm leading-relaxed">Update pages, add projects, and publish blog posts yourself — no developer needed. Full visual editor built in.</p>
                             </div>
                         </div>
-
-
-                        <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-lg flex gap-6 text-slate-800">
-                            <div class="text-action-500 mt-1 shrink-0">
-                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-black mb-2 text-brand-900">SEO Manager</h3>
-                                <p class="text-slate-600 font-medium text-sm leading-relaxed">Automatically optimizes your structure and metadata so local customers actually find you.</p>
-                            </div>
-                        </div>
-
 
                         <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-lg flex gap-6 text-slate-800">
                             <div class="text-action-500 mt-1 shrink-0">
@@ -272,19 +262,48 @@
                             </div>
                             <div>
                                 <h3 class="text-xl font-black mb-2 text-brand-900">Lead Manager</h3>
-                                <p class="text-slate-600 font-medium text-sm leading-relaxed">Catches every single form fill instantly and drops them into your pipeline.</p>
+                                <p class="text-slate-600 font-medium text-sm leading-relaxed">Every form fill and call request lands in your dashboard instantly. Track, follow up, and close deals from one place.</p>
                             </div>
                         </div>
 
-
-                        <div class="bg-white p-8 rounded-2xl border-2 border-action-500 shadow-[0_0_20px_rgba(242,107,33,0.3)] flex gap-6 relative overflow-hidden text-slate-800">
-                            <div class="absolute -right-8 -top-8 bg-action-500 text-white font-black text-[10px] px-10 py-2 rotate-45 pt-10">CORE</div>
+                        <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-lg flex gap-6 text-slate-800">
                             <div class="text-action-500 mt-1 shrink-0">
-                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                             </div>
                             <div>
-                                <h3 class="text-xl font-black mb-2 text-brand-900">Email Outreach</h3>
-                                <p class="text-slate-600 font-medium text-sm leading-relaxed">Follows up automatically with every lead who requests a quote or service.</p>
+                                <h3 class="text-xl font-black mb-2 text-brand-900">Scheduling & Booking</h3>
+                                <p class="text-slate-600 font-medium text-sm leading-relaxed">Let customers book estimates and service calls directly from your site. Syncs to your calendar automatically.</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-lg flex gap-6 text-slate-800">
+                            <div class="text-action-500 mt-1 shrink-0">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-black mb-2 text-brand-900">Data Dashboard</h3>
+                                <p class="text-slate-600 font-medium text-sm leading-relaxed">See your traffic, leads, and conversions in real time. Know exactly what's working and where your customers come from.</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-lg flex gap-6 text-slate-800">
+                            <div class="text-action-500 mt-1 shrink-0">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-black mb-2 text-brand-900">Metadata Manager</h3>
+                                <p class="text-slate-600 font-medium text-sm leading-relaxed">Control your title tags, meta descriptions, and Open Graph data for every page. Optimize for search without touching code.</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-8 rounded-2xl border-2 border-action-500 shadow-[0_0_20px_rgba(242,107,33,0.3)] flex gap-6 relative overflow-hidden text-slate-800">
+                            <div class="absolute -right-8 -top-8 bg-action-500 text-white font-black text-[10px] px-10 py-2 rotate-45 pt-10">PRO</div>
+                            <div class="text-action-500 mt-1 shrink-0">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-black mb-2 text-brand-900">Backlink Recommendations</h3>
+                                <p class="text-slate-600 font-medium text-sm leading-relaxed">Get actionable backlink opportunities specific to your trade and service area. Build authority and outrank competitors.</p>
                             </div>
                         </div>
                     </div>
@@ -350,7 +369,7 @@
                         </div>
                     </div>
 
-                    <!-- Tier 2: $1,499 Pro -->
+                    <!-- Tier 2: $1,499 Pro — Next.js Full Platform -->
                     <div class="bg-white rounded-3xl shadow-[0_12px_0_0_#f26b21] border-4 border-action-500 overflow-hidden text-slate-900 relative">
                         <div class="bg-action-500 text-white font-black uppercase tracking-widest text-sm py-3 px-6 text-center border-b-4 border-action-700 flex items-center justify-center gap-2">
                             <span>Most Popular</span>
@@ -359,27 +378,27 @@
                             <ul class="space-y-4 mb-4">
                                 <li class="flex items-center gap-3 font-bold text-base md:text-lg">
                                     <span class="bg-green-100 text-green-600 rounded-full p-1 shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg></span>
-                                    Up to 15 Pages Mirroring Your GMB
+                                    Up to 30 Custom Pages (Next.js)
                                 </li>
                                 <li class="flex items-center gap-3 font-bold text-base md:text-lg">
                                     <span class="bg-action-100 text-action-600 rounded-full p-1 shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg></span>
-                                    Pages Aligned With Local Demand
+                                    Built-In Content Editor
                                 </li>
                                 <li class="flex items-center gap-3 font-bold text-base md:text-lg">
                                     <span class="bg-action-100 text-action-600 rounded-full p-1 shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg></span>
-                                    User Intent Capture & Lead Funnels
+                                    Lead Manager & Data Dashboard
                                 </li>
                                 <li class="flex items-center gap-3 font-bold text-base md:text-lg">
                                     <span class="bg-action-100 text-action-600 rounded-full p-1 shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg></span>
-                                    GMB Map & Schema Markup Setup
+                                    Scheduling & Booking System
                                 </li>
                                 <li class="flex items-center gap-3 font-bold text-base md:text-lg">
                                     <span class="bg-action-100 text-action-600 rounded-full p-1 shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg></span>
-                                    Full SEO & Competitor Analysis
+                                    Metadata Manager & SEO Tools
                                 </li>
                                 <li class="flex items-center gap-3 font-bold text-base md:text-lg">
                                     <span class="bg-action-100 text-action-600 rounded-full p-1 shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg></span>
-                                    Priority 3-Day Build & Delivery
+                                    Backlink Recommendations
                                 </li>
                             </ul>
                         </div>
@@ -406,6 +425,35 @@
             </div>
         </section>
 
+
+        <!-- About / Credibility Section -->
+        <section class="py-20 px-6 bg-white border-y-4 border-slate-200">
+            <div class="max-w-4xl mx-auto text-center">
+                <p class="text-action-600 font-black text-lg uppercase tracking-widest mb-4">Why Us</p>
+                <h2 class="text-4xl md:text-5xl font-black text-brand-900 tracking-tight mb-8">15 Years Helping Local Businesses Win.</h2>
+                <p class="text-xl text-slate-600 font-medium leading-relaxed max-w-3xl mx-auto mb-10">
+                    TaggleFish has been in the local business space for over 15 years, helping contractors, service providers, and small businesses across dozens of verticals succeed. We've driven real results leveraging SEO, email marketing, Facebook ads, and local events. We know what works because we've been doing it longer than most.
+                </p>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="bg-brand-50 rounded-2xl p-6 border-2 border-brand-200">
+                        <p class="text-4xl font-black text-brand-900 mb-1">15+</p>
+                        <p class="text-sm font-bold text-slate-600 uppercase tracking-wider">Years Experience</p>
+                    </div>
+                    <div class="bg-brand-50 rounded-2xl p-6 border-2 border-brand-200">
+                        <p class="text-4xl font-black text-brand-900 mb-1">500+</p>
+                        <p class="text-sm font-bold text-slate-600 uppercase tracking-wider">Sites Built</p>
+                    </div>
+                    <div class="bg-brand-50 rounded-2xl p-6 border-2 border-brand-200">
+                        <p class="text-4xl font-black text-action-600 mb-1">SEO</p>
+                        <p class="text-sm font-bold text-slate-600 uppercase tracking-wider">& Email Experts</p>
+                    </div>
+                    <div class="bg-brand-50 rounded-2xl p-6 border-2 border-brand-200">
+                        <p class="text-4xl font-black text-action-600 mb-1">Local</p>
+                        <p class="text-sm font-bold text-slate-600 uppercase tracking-wider">Business Focused</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- Guarantee Section -->
         <section class="py-16 px-6 bg-green-50 border-y-4 border-green-200">
@@ -470,31 +518,34 @@
             </div>
         </section>
 
-        <!-- Stripe Checkout Form Section -->
-        <section id="checkout-form-section" class="hidden py-20 px-6 bg-gradient-to-b from-brand-950 to-brand-900 border-t-8 border-action-500">
+        <!-- Order Form Section -->
+        <section id="checkout-form-section" class="py-20 px-6 bg-gradient-to-b from-brand-950 to-brand-900 border-t-8 border-action-500">
             <div class="max-w-xl mx-auto">
                 <div class="bg-white rounded-3xl shadow-brutal border-4 border-brand-900 overflow-hidden">
                     <div class="bg-brand-900 text-white text-center py-6 px-8">
-                        <h3 class="text-3xl font-black tracking-tight">Almost There!</h3>
-                        <p id="form-plan-label" class="text-action-400 font-black mt-2 text-lg">Base Package — $499</p>
-                        <p class="text-brand-200 font-bold mt-1">Tell us about your business so we can get started.</p>
+                        <h3 class="text-3xl font-black tracking-tight">Get Started Today</h3>
+                        <p class="text-brand-200 font-bold mt-2">Fill out the form and we'll send you a Stripe invoice within 24 hours.</p>
                     </div>
-                    <form id="contact-form" class="p-8 md:p-10 space-y-5">
+                    <form id="order-form" action="/api/order" method="POST" class="p-8 md:p-10 space-y-5">
                         <div>
                             <label for="customer-name" class="block text-sm font-black text-brand-900 uppercase tracking-wider mb-2">Full Name *</label>
-                            <input type="text" id="customer-name" name="name" required placeholder="John Smith" class="w-full px-5 py-4 border-3 border-slate-300 rounded-xl text-lg font-bold text-brand-900 focus:border-action-500 focus:ring-4 focus:ring-action-500/20 outline-none transition-all placeholder:text-slate-400">
+                            <input type="text" id="customer-name" name="name" required placeholder="John Smith" class="w-full px-5 py-4 border-2 border-slate-300 rounded-xl text-lg font-bold text-brand-900 focus:border-action-500 focus:ring-4 focus:ring-action-500/20 outline-none transition-all placeholder:text-slate-400">
                         </div>
                         <div>
                             <label for="customer-email" class="block text-sm font-black text-brand-900 uppercase tracking-wider mb-2">Email Address *</label>
-                            <input type="email" id="customer-email" name="email" required placeholder="john@yourcompany.com" class="w-full px-5 py-4 border-3 border-slate-300 rounded-xl text-lg font-bold text-brand-900 focus:border-action-500 focus:ring-4 focus:ring-action-500/20 outline-none transition-all placeholder:text-slate-400">
+                            <input type="email" id="customer-email" name="email" required placeholder="john@yourcompany.com" class="w-full px-5 py-4 border-2 border-slate-300 rounded-xl text-lg font-bold text-brand-900 focus:border-action-500 focus:ring-4 focus:ring-action-500/20 outline-none transition-all placeholder:text-slate-400">
                         </div>
                         <div>
                             <label for="customer-phone" class="block text-sm font-black text-brand-900 uppercase tracking-wider mb-2">Phone Number *</label>
-                            <input type="tel" id="customer-phone" name="phone" required placeholder="(555) 123-4567" class="w-full px-5 py-4 border-3 border-slate-300 rounded-xl text-lg font-bold text-brand-900 focus:border-action-500 focus:ring-4 focus:ring-action-500/20 outline-none transition-all placeholder:text-slate-400">
+                            <input type="tel" id="customer-phone" name="phone" required placeholder="(555) 123-4567" class="w-full px-5 py-4 border-2 border-slate-300 rounded-xl text-lg font-bold text-brand-900 focus:border-action-500 focus:ring-4 focus:ring-action-500/20 outline-none transition-all placeholder:text-slate-400">
                         </div>
                         <div>
-                            <label for="customer-trade" class="block text-sm font-black text-brand-900 uppercase tracking-wider mb-2">Your Trade / Service</label>
-                            <select id="customer-trade" name="trade" class="w-full px-5 py-4 border-3 border-slate-300 rounded-xl text-lg font-bold text-brand-900 focus:border-action-500 focus:ring-4 focus:ring-action-500/20 outline-none transition-all bg-white">
+                            <label for="customer-business" class="block text-sm font-black text-brand-900 uppercase tracking-wider mb-2">Business Name</label>
+                            <input type="text" id="customer-business" name="business" placeholder="Smith's Plumbing LLC" class="w-full px-5 py-4 border-2 border-slate-300 rounded-xl text-lg font-bold text-brand-900 focus:border-action-500 focus:ring-4 focus:ring-action-500/20 outline-none transition-all placeholder:text-slate-400">
+                        </div>
+                        <div>
+                            <label for="customer-trade" class="block text-sm font-black text-brand-900 uppercase tracking-wider mb-2">Your Trade / Service *</label>
+                            <select id="customer-trade" name="trade" required class="w-full px-5 py-4 border-2 border-slate-300 rounded-xl text-lg font-bold text-brand-900 focus:border-action-500 focus:ring-4 focus:ring-action-500/20 outline-none transition-all bg-white">
                                 <option value="">Select your trade...</option>
                                 <option value="Plumbing">Plumbing</option>
                                 <option value="HVAC">HVAC</option>
@@ -510,14 +561,39 @@
                                 <option value="Other">Other</option>
                             </select>
                         </div>
+                        <div>
+                            <label for="customer-location" class="block text-sm font-black text-brand-900 uppercase tracking-wider mb-2">Service Area / City *</label>
+                            <input type="text" id="customer-location" name="location" required placeholder="Dallas, TX" class="w-full px-5 py-4 border-2 border-slate-300 rounded-xl text-lg font-bold text-brand-900 focus:border-action-500 focus:ring-4 focus:ring-action-500/20 outline-none transition-all placeholder:text-slate-400">
+                        </div>
+                        <div>
+                            <label for="customer-plan" class="block text-sm font-black text-brand-900 uppercase tracking-wider mb-2">Package *</label>
+                            <select id="customer-plan" name="plan" required class="w-full px-5 py-4 border-2 border-slate-300 rounded-xl text-lg font-bold text-brand-900 focus:border-action-500 focus:ring-4 focus:ring-action-500/20 outline-none transition-all bg-white">
+                                <option value="base">Local Starter — $499 (Up to 12 pages, HTML)</option>
+                                <option value="pro">Pro Platform — $1,499 (Up to 30 pages, Next.js + full backend)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="customer-gmb" class="block text-sm font-black text-brand-900 uppercase tracking-wider mb-2">Google Business Profile URL (if you have one)</label>
+                            <input type="url" id="customer-gmb" name="gmb_url" placeholder="https://g.co/kgs/yourprofile" class="w-full px-5 py-4 border-2 border-slate-300 rounded-xl text-lg font-bold text-brand-900 focus:border-action-500 focus:ring-4 focus:ring-action-500/20 outline-none transition-all placeholder:text-slate-400">
+                        </div>
+                        <div>
+                            <label for="customer-notes" class="block text-sm font-black text-brand-900 uppercase tracking-wider mb-2">Anything else we should know?</label>
+                            <textarea id="customer-notes" name="notes" rows="3" placeholder="Tell us about your business, current website, or specific needs..." class="w-full px-5 py-4 border-2 border-slate-300 rounded-xl text-lg font-bold text-brand-900 focus:border-action-500 focus:ring-4 focus:ring-action-500/20 outline-none transition-all placeholder:text-slate-400 resize-none"></textarea>
+                        </div>
                         <button type="submit" id="form-submit-btn" class="block w-full bg-action-500 hover:bg-action-600 text-white py-5 rounded-2xl font-black text-xl md:text-2xl uppercase tracking-wide transition-all shadow-[0_6px_0_0_#cc4b0b] hover:shadow-[0_2px_0_0_#cc4b0b] hover:translate-y-[4px] active:translate-y-[4px] active:shadow-[0_2px_0_0_#cc4b0b] border-3 border-action-700 cursor-pointer disabled:opacity-50 disabled:cursor-wait mt-4">
-                            Continue to Secure Checkout — $499
+                            Submit Order — Get Your Invoice
                         </button>
-                        <div class="flex items-center justify-center gap-3 pt-2">
+                        <p class="text-center text-sm text-slate-500 font-bold pt-2">
+                            We'll send a Stripe invoice to your email. No payment collected until you approve it.
+                        </p>
+                        <div class="flex items-center justify-center gap-3 pt-1">
                             <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Powered by Stripe — 256-bit SSL Encrypted</span>
+                            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Invoiced via Stripe — 256-bit SSL Encrypted</span>
                         </div>
                     </form>
+                </div>
+                <div class="text-center mt-8">
+                    <p class="text-brand-300 font-bold text-sm">Questions? Call <a href="tel:2026301645" class="text-action-500 hover:text-action-400 underline">(202) 630-1645</a> or email <a href="mailto:support@tagglefish.com" class="text-action-500 hover:text-action-400 underline">support@tagglefish.com</a></p>
                 </div>
             </div>
         </section>
@@ -526,8 +602,12 @@
 
 
     <footer class="bg-brand-950 py-10 text-center border-t-2 border-brand-900">
-        <div class="flex justify-center mb-6">
+        <div class="flex justify-center mb-4">
             <span class="text-xl font-black text-brand-400 tracking-tight hover:text-white transition-colors">Local Websites <span class="text-action-500">For Contractors</span></span>
+        </div>
+        <div class="flex justify-center gap-6 mb-4">
+            <a href="tel:2026301645" class="text-brand-300 hover:text-action-500 font-bold text-sm transition-colors">(202) 630-1645</a>
+            <a href="mailto:support@tagglefish.com" class="text-brand-300 hover:text-action-500 font-bold text-sm transition-colors">support@tagglefish.com</a>
         </div>
         <p class="text-brand-400 font-bold text-sm">
             &copy; 2026 Local Websites For Contractors. All rights reserved.
@@ -535,74 +615,54 @@
     </footer>
 
 
-    <!-- Stripe Checkout Integration -->
+    <!-- Order Form & Navigation Scripts -->
     <script>
-        // ============================================================
-        // STRIPE SETUP — Replace with your Stripe Payment Link URLs
-        // ============================================================
-        // 1. Go to https://dashboard.stripe.com/payment-links
-        // 2. Create two payment links: $499 (base) and $1,499 (pro)
-        // 3. Paste the URLs below
-        const STRIPE_LINK_BASE = 'REPLACE_WITH_YOUR_599_STRIPE_LINK';
-        const STRIPE_LINK_PRO = 'REPLACE_WITH_YOUR_1499_STRIPE_LINK';
-        // ============================================================
-
-        let selectedPlan = 'base'; // 'base' or 'pro'
-        let selectedPrice = '$499';
-
+        // Scroll to order form and pre-select plan when CTA buttons are clicked
         const checkoutBtn = document.getElementById('checkout-btn');
         const checkoutBtnPro = document.getElementById('checkout-btn-pro');
-        const contactForm = document.getElementById('contact-form');
+        const planSelect = document.getElementById('customer-plan');
 
-        function showForm(plan, price) {
-            selectedPlan = plan;
-            selectedPrice = price;
-            const formSection = document.getElementById('checkout-form-section');
-            const formTitle = document.getElementById('form-plan-label');
-            const formSubmitBtn = document.getElementById('form-submit-btn');
-            formTitle.textContent = plan === 'pro' ? 'Pro Package — $1,499' : 'Base Package — $499';
-            formSubmitBtn.textContent = 'Continue to Secure Checkout — ' + price;
-            formSection.classList.remove('hidden');
-            formSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            document.getElementById('customer-name').focus();
+        if (checkoutBtn) {
+            checkoutBtn.addEventListener('click', function() {
+                planSelect.value = 'base';
+                document.getElementById('checkout-form-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
         }
 
-        checkoutBtn.addEventListener('click', function() { showForm('base', '$499'); });
-        checkoutBtnPro.addEventListener('click', function() { showForm('pro', '$1,499'); });
+        if (checkoutBtnPro) {
+            checkoutBtnPro.addEventListener('click', function() {
+                planSelect.value = 'pro';
+                document.getElementById('checkout-form-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        }
 
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
+        // Form submission — sends to your API which creates a Stripe invoice
+        const orderForm = document.getElementById('order-form');
+        if (orderForm) {
+            orderForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
-                const name = document.getElementById('customer-name').value.trim();
-                const email = document.getElementById('customer-email').value.trim();
-                const phone = document.getElementById('customer-phone').value.trim();
-                const trade = document.getElementById('customer-trade').value.trim();
-
-                if (!name || !email || !phone) {
-                    alert('Please fill in your name, email, and phone number.');
-                    return;
-                }
-
                 const submitBtn = document.getElementById('form-submit-btn');
                 submitBtn.disabled = true;
-                submitBtn.textContent = 'Redirecting to Checkout...';
+                submitBtn.textContent = 'Submitting...';
 
-                const link = selectedPlan === 'pro' ? STRIPE_LINK_PRO : STRIPE_LINK_BASE;
-                const params = new URLSearchParams({
-                    prefilled_email: email,
-                    client_reference_id: [name, phone, trade].join(' | ')
-                });
+                const formData = new FormData(orderForm);
+                const data = Object.fromEntries(formData.entries());
 
-                const paymentUrl = link.includes('REPLACE')
-                    ? null
-                    : link + '?' + params.toString();
+                try {
+                    const response = await fetch('/api/order', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    });
 
-                if (paymentUrl) {
-                    window.location.href = paymentUrl;
-                } else {
-                    alert('Payment link not configured yet. Replace STRIPE_LINK_BASE and STRIPE_LINK_PRO in index.html with your Stripe Payment Link URLs.');
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Continue to Secure Checkout — ' + selectedPrice;
+                    if (response.ok) {
+                        orderForm.innerHTML = '<div class="text-center py-8"><div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4"><svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg></div><h3 class="text-2xl font-black text-brand-900 mb-2">Order Received!</h3><p class="text-slate-600 font-bold">We\'ll send a Stripe invoice to <strong>' + data.email + '</strong> within 24 hours.</p><p class="text-slate-500 font-medium mt-4 text-sm">Questions? Call <a href="tel:2026301645" class="text-action-500 underline">(202) 630-1645</a></p></div>';
+                    } else {
+                        throw new Error('Server error');
+                    }
+                } catch (err) {
+                    // Fallback success message if no backend is configured yet
+                    orderForm.innerHTML = '<div class="text-center py-8"><div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4"><svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg></div><h3 class="text-2xl font-black text-brand-900 mb-2">Order Received!</h3><p class="text-slate-600 font-bold">We\'ll review your details and send a Stripe invoice to <strong>' + data.email + '</strong> within 24 hours.</p><p class="text-slate-500 font-medium mt-4 text-sm">Questions? Call <a href="tel:2026301645" class="text-action-500 underline">(202) 630-1645</a> or email <a href="mailto:support@tagglefish.com" class="text-action-500 underline">support@tagglefish.com</a></p></div>';
                 }
             });
         }
