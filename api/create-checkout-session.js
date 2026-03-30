@@ -16,6 +16,7 @@ module.exports = async function handler(req, res) {
       mode: 'payment',
       payment_method_types: ['card'],
       customer_email: customerEmail,
+      invoice_creation: { enabled: true },
       line_items: [
         {
           price: priceId,

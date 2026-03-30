@@ -623,21 +623,20 @@
         // ============================================================
         // VERCEL + STRIPE SETUP
         // ============================================================
-        // 1. Add these Environment Variables in your Vercel Dashboard:
-        //    - STRIPE_SECRET_KEY    (sk_live_... or sk_test_...)
-        //    - STRIPE_PUBLISHABLE_KEY (pk_live_... or pk_test_...)
-        //    - STRIPE_PRICE_ID      (price_...)
+        // Add these Environment Variables in your Vercel Dashboard:
+        //   STRIPE_SECRET_KEY      (sk_live_... or sk_test_...)
+        //   STRIPE_PUBLISHABLE_KEY (pk_live_... or pk_test_...)
+        //   STRIPE_PRICE_ID        (price_...)
         //
-        // 2. Create a Product + Price in Stripe Dashboard:
-        //    https://dashboard.stripe.com/products
-        //    One-time payment, $599
+        // Create a Product + Price in Stripe Dashboard for $599 one-time
+        // Invoice is auto-generated after payment (invoice_creation: true)
         // ============================================================
 
         const leadForm = document.getElementById('lead-form');
         const checkoutBtn = document.getElementById('checkout-btn');
         const formSuccess = document.getElementById('form-success');
 
-        // Handle ?success=true or ?canceled=true from Stripe redirect
+        // Handle return from Stripe payment
         const params = new URLSearchParams(window.location.search);
         if (params.get('success') === 'true') {
             const offerSection = document.getElementById('offer');
@@ -668,7 +667,6 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        priceId: formData.trade,
                         customerEmail: formData.email,
                         metadata: formData
                     })
@@ -679,7 +677,7 @@
                 }
 
                 const session = await response.json();
-                const stripe = Stripe(session.publishableKey || 'pk_test_REPLACE_WITH_YOUR_KEY');
+                const stripe = Stripe(session.publishableKey);
 
                 const result = await stripe.redirectToCheckout({
                     sessionId: session.id
@@ -689,7 +687,7 @@
                     alert(result.error.message);
                 }
             } catch (err) {
-                // Fallback: capture lead when Stripe keys aren't set yet
+                // Fallback: capture lead when Stripe keys aren't configured yet
                 leadForm.classList.add('hidden');
                 formSuccess.classList.remove('hidden');
                 console.log('Lead captured:', formData);
