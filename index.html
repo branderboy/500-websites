@@ -618,29 +618,37 @@
     </footer>
 
 
-    <!-- Stripe Checkout Integration -->
+    <!-- Stripe Checkout via Vercel Serverless -->
     <script>
         // ============================================================
-        // STRIPE SETUP — Replace these values with your own
+        // VERCEL + STRIPE SETUP
         // ============================================================
-        // 1. Go to https://dashboard.stripe.com/apikeys
-        // 2. Copy your PUBLISHABLE key (starts with pk_live_ or pk_test_)
-        // 3. Paste it below
-        const STRIPE_PUBLISHABLE_KEY = 'pk_test_REPLACE_WITH_YOUR_KEY';
-
-        // 4. Create a Payment Link or Checkout Session in Stripe Dashboard:
-        //    - Go to https://dashboard.stripe.com/payment-links
-        //    - Create a link for $599 one-time payment
-        //    - Copy the Price ID (starts with price_)
-        const STRIPE_PRICE_ID = 'price_REPLACE_WITH_YOUR_PRICE_ID';
-
-        // Option A: Stripe Checkout (requires a backend endpoint)
-        // Option B: Stripe Payment Links (no backend needed — recommended)
+        // 1. Add these Environment Variables in your Vercel Dashboard:
+        //    - STRIPE_SECRET_KEY    (sk_live_... or sk_test_...)
+        //    - STRIPE_PUBLISHABLE_KEY (pk_live_... or pk_test_...)
+        //    - STRIPE_PRICE_ID      (price_...)
+        //
+        // 2. Create a Product + Price in Stripe Dashboard:
+        //    https://dashboard.stripe.com/products
+        //    One-time payment, $599
         // ============================================================
 
         const leadForm = document.getElementById('lead-form');
         const checkoutBtn = document.getElementById('checkout-btn');
         const formSuccess = document.getElementById('form-success');
+
+        // Handle ?success=true or ?canceled=true from Stripe redirect
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('success') === 'true') {
+            const offerSection = document.getElementById('offer');
+            if (offerSection) {
+                leadForm.classList.add('hidden');
+                formSuccess.classList.remove('hidden');
+                formSuccess.querySelector('div').textContent = 'Payment Received!';
+                formSuccess.querySelector('p').textContent = 'Thank you! A TaggleFish specialist will reach out within 24 hours to kick off your website build.';
+                offerSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
 
         leadForm.addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -653,30 +661,25 @@
             };
 
             checkoutBtn.disabled = true;
-            checkoutBtn.textContent = 'Processing...';
+            checkoutBtn.textContent = 'Redirecting to Checkout...';
 
             try {
-                // ── OPTION B: Payment Link (simplest — no backend) ──
-                // Uncomment the block below and replace with your Stripe Payment Link URL:
-                // window.location.href = 'https://buy.stripe.com/REPLACE_WITH_YOUR_LINK'
-                //     + '?prefilled_email=' + encodeURIComponent(formData.email)
-                //     + '&client_reference_id=' + encodeURIComponent(formData.phone);
-                // return;
-
-                // ── OPTION A: Stripe Checkout Session (needs backend) ──
-                const stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
-
                 const response = await fetch('/api/create-checkout-session', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        priceId: STRIPE_PRICE_ID,
+                        priceId: formData.trade,
                         customerEmail: formData.email,
                         metadata: formData
                     })
                 });
 
+                if (!response.ok) {
+                    throw new Error('Checkout session failed');
+                }
+
                 const session = await response.json();
+                const stripe = Stripe(session.publishableKey || 'pk_test_REPLACE_WITH_YOUR_KEY');
 
                 const result = await stripe.redirectToCheckout({
                     sessionId: session.id
@@ -686,11 +689,10 @@
                     alert(result.error.message);
                 }
             } catch (err) {
-                // Fallback: Show success message when Stripe is not configured yet
+                // Fallback: capture lead when Stripe keys aren't set yet
                 leadForm.classList.add('hidden');
                 formSuccess.classList.remove('hidden');
                 console.log('Lead captured:', formData);
-                console.info('Stripe not configured yet. Lead data logged. Set up your Stripe keys in index.html.');
             } finally {
                 checkoutBtn.disabled = false;
                 checkoutBtn.textContent = 'Claim $599 Setup';
