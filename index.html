@@ -155,7 +155,7 @@
             box-shadow: 8px 8px 0px 0px #f26b21;
         }
     </style>
-    <script src="https://js.stripe.com/v3/"></script>
+    <!-- No Stripe.js needed — using Stripe Payment Links (invoice) -->
     <script>
         tailwind.config = {
             theme: {
@@ -618,26 +618,22 @@
     </footer>
 
 
-    <!-- Stripe Checkout via Vercel Serverless -->
+    <!-- Stripe Payment Link (Invoice) -->
     <script>
         // ============================================================
-        // VERCEL + STRIPE SETUP
+        // STRIPE PAYMENT LINK SETUP
         // ============================================================
-        // 1. Add these Environment Variables in your Vercel Dashboard:
-        //    - STRIPE_SECRET_KEY    (sk_live_... or sk_test_...)
-        //    - STRIPE_PUBLISHABLE_KEY (pk_live_... or pk_test_...)
-        //    - STRIPE_PRICE_ID      (price_...)
-        //
-        // 2. Create a Product + Price in Stripe Dashboard:
-        //    https://dashboard.stripe.com/products
-        //    One-time payment, $599
+        // 1. Go to https://dashboard.stripe.com/payment-links
+        // 2. Create a Payment Link for $599 one-time payment
+        // 3. Paste the URL below (looks like https://buy.stripe.com/xxxxx)
         // ============================================================
+        const STRIPE_PAYMENT_LINK = 'https://buy.stripe.com/REPLACE_WITH_YOUR_LINK';
 
         const leadForm = document.getElementById('lead-form');
         const checkoutBtn = document.getElementById('checkout-btn');
         const formSuccess = document.getElementById('form-success');
 
-        // Handle ?success=true or ?canceled=true from Stripe redirect
+        // Handle return from Stripe payment
         const params = new URLSearchParams(window.location.search);
         if (params.get('success') === 'true') {
             const offerSection = document.getElementById('offer');
@@ -650,53 +646,23 @@
             }
         }
 
-        leadForm.addEventListener('submit', async function(e) {
+        leadForm.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            const formData = {
-                name: document.getElementById('lead-name').value,
-                email: document.getElementById('lead-email').value,
-                phone: document.getElementById('lead-phone').value,
-                trade: document.getElementById('lead-trade').value
-            };
+            const name = document.getElementById('lead-name').value;
+            const email = document.getElementById('lead-email').value;
+            const phone = document.getElementById('lead-phone').value;
+            const trade = document.getElementById('lead-trade').value;
 
             checkoutBtn.disabled = true;
-            checkoutBtn.textContent = 'Redirecting to Checkout...';
+            checkoutBtn.textContent = 'Redirecting to Invoice...';
 
-            try {
-                const response = await fetch('/api/create-checkout-session', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        priceId: formData.trade,
-                        customerEmail: formData.email,
-                        metadata: formData
-                    })
-                });
+            // Redirect to Stripe Payment Link with prefilled email
+            const paymentUrl = STRIPE_PAYMENT_LINK
+                + '?prefilled_email=' + encodeURIComponent(email)
+                + '&client_reference_id=' + encodeURIComponent(name + ' | ' + phone + ' | ' + trade);
 
-                if (!response.ok) {
-                    throw new Error('Checkout session failed');
-                }
-
-                const session = await response.json();
-                const stripe = Stripe(session.publishableKey || 'pk_test_REPLACE_WITH_YOUR_KEY');
-
-                const result = await stripe.redirectToCheckout({
-                    sessionId: session.id
-                });
-
-                if (result.error) {
-                    alert(result.error.message);
-                }
-            } catch (err) {
-                // Fallback: capture lead when Stripe keys aren't set yet
-                leadForm.classList.add('hidden');
-                formSuccess.classList.remove('hidden');
-                console.log('Lead captured:', formData);
-            } finally {
-                checkoutBtn.disabled = false;
-                checkoutBtn.textContent = 'Claim $599 Setup';
-            }
+            window.location.href = paymentUrl;
         });
     </script>
 
