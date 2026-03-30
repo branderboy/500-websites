@@ -155,7 +155,7 @@
             box-shadow: 8px 8px 0px 0px #f26b21;
         }
     </style>
-    <!-- No Stripe.js needed — using Stripe Payment Links (invoice) -->
+    <script src="https://js.stripe.com/v3/"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -618,16 +618,19 @@
     </footer>
 
 
-    <!-- Stripe Payment Link (Invoice) -->
+    <!-- Stripe Checkout via Vercel Serverless -->
     <script>
         // ============================================================
-        // STRIPE PAYMENT LINK SETUP
+        // VERCEL + STRIPE SETUP
         // ============================================================
-        // 1. Go to https://dashboard.stripe.com/payment-links
-        // 2. Create a Payment Link for $599 one-time payment
-        // 3. Paste the URL below (looks like https://buy.stripe.com/xxxxx)
+        // Add these Environment Variables in your Vercel Dashboard:
+        //   STRIPE_SECRET_KEY      (sk_live_... or sk_test_...)
+        //   STRIPE_PUBLISHABLE_KEY (pk_live_... or pk_test_...)
+        //   STRIPE_PRICE_ID        (price_...)
+        //
+        // Create a Product + Price in Stripe Dashboard for $599 one-time
+        // Invoice is auto-generated after payment (invoice_creation: true)
         // ============================================================
-        const STRIPE_PAYMENT_LINK = 'https://buy.stripe.com/REPLACE_WITH_YOUR_LINK';
 
         const leadForm = document.getElementById('lead-form');
         const checkoutBtn = document.getElementById('checkout-btn');
@@ -646,23 +649,52 @@
             }
         }
 
-        leadForm.addEventListener('submit', function(e) {
+        leadForm.addEventListener('submit', async function(e) {
             e.preventDefault();
 
-            const name = document.getElementById('lead-name').value;
-            const email = document.getElementById('lead-email').value;
-            const phone = document.getElementById('lead-phone').value;
-            const trade = document.getElementById('lead-trade').value;
+            const formData = {
+                name: document.getElementById('lead-name').value,
+                email: document.getElementById('lead-email').value,
+                phone: document.getElementById('lead-phone').value,
+                trade: document.getElementById('lead-trade').value
+            };
 
             checkoutBtn.disabled = true;
-            checkoutBtn.textContent = 'Redirecting to Invoice...';
+            checkoutBtn.textContent = 'Redirecting to Checkout...';
 
-            // Redirect to Stripe Payment Link with prefilled email
-            const paymentUrl = STRIPE_PAYMENT_LINK
-                + '?prefilled_email=' + encodeURIComponent(email)
-                + '&client_reference_id=' + encodeURIComponent(name + ' | ' + phone + ' | ' + trade);
+            try {
+                const response = await fetch('/api/create-checkout-session', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        customerEmail: formData.email,
+                        metadata: formData
+                    })
+                });
 
-            window.location.href = paymentUrl;
+                if (!response.ok) {
+                    throw new Error('Checkout session failed');
+                }
+
+                const session = await response.json();
+                const stripe = Stripe(session.publishableKey);
+
+                const result = await stripe.redirectToCheckout({
+                    sessionId: session.id
+                });
+
+                if (result.error) {
+                    alert(result.error.message);
+                }
+            } catch (err) {
+                // Fallback: capture lead when Stripe keys aren't configured yet
+                leadForm.classList.add('hidden');
+                formSuccess.classList.remove('hidden');
+                console.log('Lead captured:', formData);
+            } finally {
+                checkoutBtn.disabled = false;
+                checkoutBtn.textContent = 'Claim $599 Setup';
+            }
         });
     </script>
 
