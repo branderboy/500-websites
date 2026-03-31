@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" fill="none">
+  <!-- Background Circle -->
+  <circle cx="250" cy="250" r="230" fill="#f0f7ff" stroke="#d8ebf9" stroke-width="3"/>
+
+  <!-- Wrench -->
+  <g transform="translate(80, 100) rotate(-30, 100, 150)">
+    <rect x="88" y="80" width="24" height="160" rx="6" fill="#0b2a4a"/>
+    <circle cx="100" cy="70" r="35" fill="none" stroke="#0b2a4a" stroke-width="20"/>
+    <circle cx="100" cy="70" r="35" fill="none" stroke="#f0f7ff" stroke-width="14"/>
+    <rect x="80" y="60" width="40" height="30" fill="#f0f7ff"/>
+  </g>
+
+  <!-- Hammer -->
+  <g transform="translate(260, 80) rotate(25, 80, 150)">
+    <rect x="72" y="100" width="16" height="180" rx="4" fill="#8B5E3C"/>
+    <!-- Hammer Head -->
+    <rect x="40" y="70" width="90" height="40" rx="6" fill="#0b2a4a"/>
+    <rect x="110" y="65" width="30" height="50" rx="4" fill="#0b2a4a"/>
+  </g>
+
+  <!-- Hard Hat -->
+  <g transform="translate(160, 280)">
+    <ellipse cx="90" cy="85" rx="95" ry="20" fill="#e8a000"/>
+    <path d="M10 85 Q10 20 90 10 Q170 20 170 85" fill="#f26b21"/>
+    <rect x="5" y="75" width="170" height="15" rx="4" fill="#e8a000"/>
+    <rect x="70" y="10" width="40" height="70" rx="4" fill="#f26b21" opacity="0.3"/>
+  </g>
+
+  <!-- Measuring Tape accent -->
+  <g transform="translate(60, 330)">
+    <rect x="0" y="0" width="60" height="8" rx="4" fill="#f26b21" opacity="0.4"/>
+    <rect x="0" y="0" width="8" height="8" rx="4" fill="#f26b21"/>
+    <rect x="15" y="2" width="2" height="4" fill="#f26b21" opacity="0.6"/>
+    <rect x="25" y="2" width="2" height="4" fill="#f26b21" opacity="0.6"/>
+    <rect x="35" y="2" width="2" height="4" fill="#f26b21" opacity="0.6"/>
+    <rect x="45" y="2" width="2" height="4" fill="#f26b21" opacity="0.6"/>
+  </g>
+
+  <!-- Bolt/Lightning for electrical -->
+  <g transform="translate(340, 300)">
+    <polygon points="30,0 10,40 25,40 5,80 50,30 35,30 55,0" fill="#f26b21" opacity="0.5"/>
+  </g>
+
+  <!-- Stars / quality badges -->
+  <g transform="translate(100, 120)" opacity="0.3">
+    <text font-family="system-ui, sans-serif" font-size="20" fill="#f26b21">★</text>
+  </g>
+  <g transform="translate(350, 250)" opacity="0.2">
+    <text font-family="system-ui, sans-serif" font-size="16" fill="#f26b21">★</text>
+  </g>
+  <g transform="translate(380, 140)" opacity="0.25">
+    <text font-family="system-ui, sans-serif" font-size="24" fill="#f26b21">★</text>
+  </g>
+</svg>
