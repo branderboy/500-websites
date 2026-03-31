@@ -1,9 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 450" fill="none">
   <!-- Background -->
-  <rect width="500" height="450" rx="16" fill="#0a2540" opacity="0.3"/>
+  <rect width="500" height="450" rx="16" fill="#ffffff"/>
+  <rect width="500" height="450" rx="16" fill="#0a2540" opacity="0.08"/>
 
   <!-- Title -->
-  <text x="250" y="35" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="900" font-size="16" fill="#ffffff" letter-spacing="1">WHERE YOUR LEADS ARE GOING</text>
+  <text x="250" y="35" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="900" font-size="16" fill="#0b2a4a" letter-spacing="1">WHERE YOUR LEADS ARE GOING</text>
 
   <!-- Homeowner Search -->
   <rect x="150" y="55" width="200" height="50" rx="12" fill="#ffffff" stroke="#f26b21" stroke-width="3"/>
@@ -15,9 +16,9 @@
   <polygon points="250,138 243,128 257,128" fill="#f26b21"/>
 
   <!-- Google Maps Box -->
-  <rect x="100" y="140" width="300" height="45" rx="10" fill="#1a3d5c" stroke="#2d6a9f" stroke-width="2"/>
-  <text x="250" y="162" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="800" font-size="12" fill="#8bb8d9">📍 Google Maps — Top 3 Results</text>
-  <text x="250" y="178" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="600" font-size="10" fill="#5a9fcf">They click all 3 websites...</text>
+  <rect x="100" y="140" width="300" height="45" rx="10" fill="#0b2a4a" stroke="#0b2a4a" stroke-width="2"/>
+  <text x="250" y="162" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="800" font-size="12" fill="#ffffff">📍 Google Maps — Top 3 Results</text>
+  <text x="250" y="178" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="600" font-size="10" fill="#d8ebf9">They click all 3 websites...</text>
 
   <!-- Split into 3 arrows -->
   <path d="M170 185 L100 215" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>
@@ -25,25 +26,25 @@
   <path d="M330 185 L400 215" stroke="#22c55e" stroke-width="3" stroke-linecap="round"/>
 
   <!-- Competitor 1 -->
-  <rect x="30" y="218" width="150" height="80" rx="10" fill="#1c1c1c" stroke="#ef4444" stroke-width="2"/>
+  <rect x="30" y="218" width="150" height="80" rx="10" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
   <text x="105" y="242" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="700" font-size="11" fill="#ef4444">❌ Your Old Site</text>
-  <text x="105" y="260" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="600" font-size="9" fill="#94a3b8">Slow loading</text>
-  <text x="105" y="274" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="600" font-size="9" fill="#94a3b8">No schema markup</text>
-  <text x="105" y="288" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="600" font-size="9" fill="#94a3b8">Doesn't match GMB</text>
+  <text x="105" y="260" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="600" font-size="9" fill="#64748b">Slow loading</text>
+  <text x="105" y="274" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="600" font-size="9" fill="#64748b">No schema markup</text>
+  <text x="105" y="288" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="600" font-size="9" fill="#64748b">Doesn't match GMB</text>
 
   <!-- Competitor 2 -->
-  <rect x="195" y="218" width="150" height="80" rx="10" fill="#1c1c1c" stroke="#ef4444" stroke-width="2"/>
+  <rect x="195" y="218" width="150" height="80" rx="10" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
   <text x="270" y="242" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="700" font-size="11" fill="#ef4444">❌ Competitor B</text>
-  <text x="270" y="260" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="600" font-size="9" fill="#94a3b8">Wix template</text>
-  <text x="270" y="274" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="600" font-size="9" fill="#94a3b8">No lead forms</text>
-  <text x="270" y="288" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="600" font-size="9" fill="#94a3b8">Generic copy</text>
+  <text x="270" y="260" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="600" font-size="9" fill="#64748b">Wix template</text>
+  <text x="270" y="274" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="600" font-size="9" fill="#64748b">No lead forms</text>
+  <text x="270" y="288" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="600" font-size="9" fill="#64748b">Generic copy</text>
 
   <!-- Winner -->
-  <rect x="320" y="218" width="160" height="80" rx="10" fill="#052e16" stroke="#22c55e" stroke-width="3"/>
+  <rect x="320" y="218" width="160" height="80" rx="10" fill="#f0fdf4" stroke="#22c55e" stroke-width="3"/>
   <text x="400" y="240" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="900" font-size="11" fill="#22c55e">✅ $500 Website</text>
-  <text x="400" y="258" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="600" font-size="9" fill="#86efac">19 SEO pages</text>
-  <text x="400" y="272" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="600" font-size="9" fill="#86efac">Structured data</text>
-  <text x="400" y="286" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="600" font-size="9" fill="#86efac">GMB mirrored</text>
+  <text x="400" y="258" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="600" font-size="9" fill="#15803d">19 SEO pages</text>
+  <text x="400" y="272" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="600" font-size="9" fill="#15803d">Structured data</text>
+  <text x="400" y="286" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="600" font-size="9" fill="#15803d">GMB mirrored</text>
 
   <!-- Result arrows -->
   <path d="M105 298 L105 330" stroke="#ef4444" stroke-width="2" stroke-dasharray="6,4"/>
@@ -52,14 +53,14 @@
   <polygon points="400,340 393,330 407,330" fill="#22c55e"/>
 
   <!-- Lost leads -->
-  <rect x="30" y="335" width="150" height="35" rx="8" fill="#450a0a"/>
+  <rect x="30" y="335" width="150" height="35" rx="8" fill="#fef2f2" stroke="#ef4444" stroke-width="1"/>
   <text x="105" y="357" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="800" font-size="12" fill="#ef4444">💀 Lost Lead</text>
 
-  <rect x="195" y="335" width="150" height="35" rx="8" fill="#450a0a"/>
+  <rect x="195" y="335" width="150" height="35" rx="8" fill="#fef2f2" stroke="#ef4444" stroke-width="1"/>
   <text x="270" y="357" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="800" font-size="12" fill="#ef4444">💀 Lost Lead</text>
 
   <!-- Won lead -->
-  <rect x="320" y="335" width="160" height="35" rx="8" fill="#052e16" stroke="#22c55e" stroke-width="2"/>
+  <rect x="320" y="335" width="160" height="35" rx="8" fill="#f0fdf4" stroke="#22c55e" stroke-width="2"/>
   <text x="400" y="357" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="800" font-size="12" fill="#22c55e">📞 They Call YOU</text>
 
   <!-- Bottom callout -->
