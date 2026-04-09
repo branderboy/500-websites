@@ -7,6 +7,7 @@ module.exports = async function handler(req, res) {
   }
 
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+  const priceId = process.env.STRIPE_PRICE_ID;
 
   const { customerEmail, metadata } = req.body;
 
@@ -18,15 +19,8 @@ module.exports = async function handler(req, res) {
       invoice_creation: { enabled: true },
       line_items: [
         {
+          price: priceId,
           quantity: 1,
-          price_data: {
-            currency: 'usd',
-            unit_amount: 50000,
-            product_data: {
-              name: '19-Page SEO Contractor Website',
-              description: 'Up to 19 SEO-optimized pages, GMB mirroring, structured data, PR 82 hosting, and rapid URL indexing.',
-            },
-          },
         },
       ],
       metadata: {
