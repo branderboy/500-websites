@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Your Order | $500 Websites</title>
+    <meta name="robots" content="noindex, nofollow">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7fb', 100: '#d8ebf9', 200: '#b4daf5',
+                            300: '#7eb6e2', 400: '#5296cb', 500: '#347ab6',
+                            600: '#266198', 700: '#1d4e7d', 800: '#1a4369',
+                            900: '#102a43', 950: '#0a1a2b',
+                        },
+                        action: {
+                            50: '#fff4ed', 100: '#ffe6d4', 500: '#f26b21',
+                            600: '#e65c15', 700: '#cc4b0b', 800: '#a33b09',
+                        }
+                    },
+                    boxShadow: {
+                        '3d-button': '0 8px 0 0 #cc4b0b',
+                        '3d-button-hover': '0 2px 0 0 #cc4b0b',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+    <nav class="bg-white border-b-2 border-slate-200 py-4 px-6">
+        <div class="max-w-2xl mx-auto flex justify-center">
+            <img src="images/logo.svg" alt="$500 Websites" class="h-10 object-contain">
+        </div>
+    </nav>
+
+    <!-- Progress bar -->
+    <div class="h-1.5 bg-slate-200">
+        <div class="h-full bg-action-500 transition-all" style="width: 100%"></div>
+    </div>
+
+    <main class="flex-1 py-12 px-6">
+        <div class="max-w-xl mx-auto">
+
+            <p class="text-xs font-black text-slate-400 uppercase tracking-widest text-center mb-8">Step 7 of 7 &mdash; Order Summary</p>
+
+            <h1 class="text-4xl font-black text-brand-900 text-center mb-10">Here's What You're Getting</h1>
+
+            <!-- Order summary card -->
+            <div class="bg-white border-4 border-brand-900 rounded-2xl overflow-hidden shadow-[8px_8px_0_0_#102a43] mb-8">
+                <div class="bg-brand-900 px-6 py-4">
+                    <p class="text-brand-200 font-black text-sm uppercase tracking-widest">Your Order</p>
+                </div>
+                <div id="order-items" class="divide-y-2 divide-slate-100">
+                    <!-- Populated by JS -->
+                </div>
+                <div class="px-6 py-5 bg-slate-50 border-t-4 border-brand-900 flex justify-between items-center">
+                    <span class="font-black text-brand-900 text-xl">Total Due Today</span>
+                    <span id="order-total" class="font-black text-action-600 text-3xl"></span>
+                </div>
+            </div>
+
+            <!-- Timer offer bonus (if claimed) -->
+            <div id="gbp-bonus" class="hidden bg-green-50 border-2 border-green-300 rounded-xl p-4 mb-6 flex items-start gap-3">
+                <span class="text-green-500 font-black text-lg shrink-0">✓</span>
+                <div>
+                    <p class="font-black text-green-800">Free GBP Audit Included</p>
+                    <p class="text-sm text-green-600 font-medium">We'll send your audit within 48 hours of your site going live.</p>
+                </div>
+            </div>
+
+            <!-- Customer info recap -->
+            <div id="customer-info" class="bg-brand-50 border-2 border-brand-200 rounded-xl p-4 mb-8 text-sm font-medium text-brand-700">
+                <!-- Populated by JS -->
+            </div>
+
+            <!-- CTA -->
+            <button id="pay-btn" onclick="startCheckout()" class="block w-full bg-action-500 hover:bg-action-600 text-white py-6 rounded-2xl font-black text-2xl uppercase tracking-wide transition-all shadow-3d-button hover:shadow-3d-button-hover hover:translate-y-[6px] active:translate-y-[6px] active:shadow-3d-button-hover border-2 border-action-700 mb-4 disabled:opacity-50 disabled:cursor-wait">
+                Complete My Order
+            </button>
+
+            <div id="error-msg" class="hidden text-red-600 font-bold text-sm text-center mb-4"></div>
+
+            <div class="flex items-center justify-center gap-2 text-xs text-slate-400 font-medium">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                256-bit SSL &mdash; Powered by Stripe
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        const order = JSON.parse(localStorage.getItem('order') || '{}');
+        if (!order.email) window.location.href = '/';
+
+        const ITEMS = [
+            { key: 'base',          label: '19-Page SEO Website',             price: 500,  always: true },
+            { key: 'priorityBuild', label: 'Priority Build',                  price: 25,   always: false },
+            { key: 'upsell1',       label: 'City Expansion Pages',             price: 389,  always: false },
+            { key: 'upsell2',       label: 'Authority Boost',                  price: 99,   always: false },
+            { key: 'upsell3',       label: 'Theme Upgrade + Smart Plugins',    price: 225,  always: false },
+            { key: 'upsell4',       label: 'Lead Follow-Up System',            price: 885,  always: false },
+        ];
+
+        const selected = ITEMS.filter(i => i.always || order[i.key]);
+        const total = selected.reduce((sum, i) => sum + i.price, 0);
+
+        // Render order items
+        const itemsEl = document.getElementById('order-items');
+        selected.forEach(item => {
+            const row = document.createElement('div');
+            row.className = 'px-6 py-4 flex justify-between items-center';
+            row.innerHTML = `
+                <span class="flex items-center gap-2 font-medium text-slate-700">
+                    <span class="text-green-500 font-black">✓</span>
+                    ${item.label}
+                </span>
+                <span class="font-black text-brand-900">$${item.price.toLocaleString()}</span>
+            `;
+            itemsEl.appendChild(row);
+        });
+
+        document.getElementById('order-total').textContent = '$' + total.toLocaleString();
+
+        // Show GBP bonus if timer offer was claimed
+        if (order.timerOffer) {
+            document.getElementById('gbp-bonus').classList.remove('hidden');
+        }
+
+        // Show customer info
+        document.getElementById('customer-info').innerHTML = `
+            <p class="font-black text-brand-800 mb-1">Ordering for:</p>
+            <p>${order.name} &mdash; ${order.email} &mdash; ${order.phone}</p>
+            <p class="capitalize mt-0.5">${order.trade.replace(/-/g, ' ')}</p>
+        `;
+
+        async function startCheckout() {
+            const btn = document.getElementById('pay-btn');
+            const errEl = document.getElementById('error-msg');
+            btn.disabled = true;
+            btn.textContent = 'Redirecting to secure payment...';
+            errEl.classList.add('hidden');
+
+            const selectedKeys = selected.map(i => i.key);
+
+            try {
+                const res = await fetch('/api/create-checkout-session', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        customerEmail: order.email,
+                        metadata: { name: order.name, phone: order.phone, trade: order.trade },
+                        items: selectedKeys,
+                    }),
+                });
+
+                if (!res.ok) throw new Error('Could not create checkout session');
+
+                const session = await res.json();
+                const stripe = Stripe(session.publishableKey);
+                const result = await stripe.redirectToCheckout({ sessionId: session.id });
+
+                if (result.error) throw new Error(result.error.message);
+            } catch (err) {
+                errEl.textContent = err.message || 'Something went wrong. Please try again.';
+                errEl.classList.remove('hidden');
+                btn.disabled = false;
+                btn.textContent = 'Complete My Order';
+            }
+        }
+    </script>
+
+</body>
+</html>
