@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Spot Is Reserved | $500 Websites</title>
+    <meta name="robots" content="noindex, nofollow">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        @keyframes pulse-ring {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+        .pulse-ring {
+            animation: pulse-ring 1.5s ease-out infinite;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7fb', 100: '#d8ebf9', 200: '#b4daf5',
+                            300: '#7eb6e2', 400: '#5296cb', 500: '#347ab6',
+                            600: '#266198', 700: '#1d4e7d', 800: '#1a4369',
+                            900: '#102a43', 950: '#0a1a2b',
+                        },
+                        action: {
+                            50: '#fff4ed', 100: '#ffe6d4', 500: '#f26b21',
+                            600: '#e65c15', 700: '#cc4b0b', 800: '#a33b09',
+                        }
+                    },
+                    boxShadow: {
+                        '3d-button': '0 8px 0 0 #cc4b0b',
+                        '3d-button-hover': '0 2px 0 0 #cc4b0b',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-brand-900 text-white min-h-screen flex flex-col">
+
+    <nav class="bg-brand-950 border-b-2 border-brand-800 py-4 px-6">
+        <div class="max-w-2xl mx-auto flex justify-center">
+            <img src="images/logo-white.svg" alt="$500 Websites" class="h-10 object-contain">
+        </div>
+    </nav>
+
+    <!-- Progress bar -->
+    <div class="h-1.5 bg-brand-800">
+        <div class="h-full bg-action-500 transition-all" style="width: 85%"></div>
+    </div>
+
+    <main class="flex-1 py-12 px-6">
+        <div class="max-w-xl mx-auto text-center">
+
+            <p class="text-xs font-black text-brand-400 uppercase tracking-widest mb-8">Step 6 of 7 &mdash; Limited Time Bonus</p>
+
+            <!-- Pulsing timer icon -->
+            <div class="relative w-20 h-20 mx-auto mb-8">
+                <div class="absolute inset-0 bg-action-500 rounded-full pulse-ring"></div>
+                <div class="relative w-20 h-20 bg-action-500 rounded-full flex items-center justify-center">
+                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+            </div>
+
+            <h1 class="text-4xl md:text-5xl font-black text-white leading-tight mb-4">
+                Your Spot Is Reserved
+            </h1>
+
+            <!-- Countdown -->
+            <p class="text-brand-300 font-bold text-lg mb-3">Complete your order within</p>
+            <div id="timer" class="text-7xl md:text-8xl font-black text-action-500 tracking-tighter mb-3 tabular-nums">
+                15:00
+            </div>
+            <p class="text-brand-400 font-medium text-sm mb-10">and we'll include a free Google Business Profile review</p>
+
+            <!-- Offer card -->
+            <div class="bg-white text-slate-900 rounded-2xl p-8 mb-6 text-left border-4 border-action-500 shadow-[8px_8px_0_0_#f26b21]">
+                <div class="flex items-start gap-4 mb-6">
+                    <span class="bg-action-100 text-action-600 font-black text-xs px-3 py-1 rounded-full border border-action-200 shrink-0 mt-1">FREE BONUS</span>
+                    <div>
+                        <h2 class="font-black text-brand-900 text-xl leading-tight">Google Business Profile Audit</h2>
+                        <p class="text-slate-500 font-medium text-sm mt-1">$150 value &mdash; included at no extra charge</p>
+                    </div>
+                </div>
+                <p class="text-slate-600 font-medium leading-relaxed mb-4">
+                    Our team will audit your Google Business Profile and send you a full report within 48 hours of your site going live — showing exactly what to fix to rank higher in Maps.
+                </p>
+                <div class="space-y-2">
+                    <div class="flex items-center gap-2 text-sm font-medium text-slate-700">
+                        <span class="text-green-500 font-black">✓</span> Ranking opportunities you're missing right now
+                    </div>
+                    <div class="flex items-center gap-2 text-sm font-medium text-slate-700">
+                        <span class="text-green-500 font-black">✓</span> Photo and review strategy for your trade
+                    </div>
+                    <div class="flex items-center gap-2 text-sm font-medium text-slate-700">
+                        <span class="text-green-500 font-black">✓</span> Service area and category recommendations
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="claim()" class="block w-full bg-action-500 hover:bg-action-600 text-white py-5 rounded-2xl font-black text-2xl uppercase tracking-wide transition-all shadow-3d-button hover:shadow-3d-button-hover hover:translate-y-[6px] active:translate-y-[6px] active:shadow-3d-button-hover border-2 border-action-700 mb-4">
+                Claim Free Audit &amp; Complete Order
+            </button>
+
+            <button onclick="skip()" class="text-brand-400 hover:text-brand-200 font-bold text-sm transition-colors underline underline-offset-2">
+                No thanks, just complete my order
+            </button>
+
+        </div>
+    </main>
+
+    <script>
+        const order = JSON.parse(localStorage.getItem('order') || '{}');
+        if (!order.email) window.location.href = '/';
+
+        // Persist timer across page visits
+        const TIMER_KEY = 'timer_expiry';
+        let expiry = parseInt(localStorage.getItem(TIMER_KEY), 10);
+        if (!expiry || isNaN(expiry)) {
+            expiry = Date.now() + 15 * 60 * 1000;
+            localStorage.setItem(TIMER_KEY, expiry);
+        }
+
+        const timerEl = document.getElementById('timer');
+
+        function updateTimer() {
+            const remaining = expiry - Date.now();
+            if (remaining <= 0) {
+                timerEl.textContent = '00:00';
+                goToCheckout();
+                return;
+            }
+            const mins = Math.floor(remaining / 60000);
+            const secs = Math.floor((remaining % 60000) / 1000);
+            timerEl.textContent = String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+        }
+
+        updateTimer();
+        const interval = setInterval(updateTimer, 1000);
+
+        function goToCheckout() {
+            clearInterval(interval);
+            window.location.href = '/checkout.html';
+        }
+
+        function claim() {
+            order.timerOffer = true;
+            localStorage.setItem('order', JSON.stringify(order));
+            goToCheckout();
+        }
+
+        function skip() {
+            order.timerOffer = false;
+            localStorage.setItem('order', JSON.stringify(order));
+            goToCheckout();
+        }
+    </script>
+
+</body>
+</html>

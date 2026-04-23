@@ -155,7 +155,6 @@
             box-shadow: 8px 8px 0px 0px #f26b21;
         }
     </style>
-    <script src="https://js.stripe.com/v3/"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -499,17 +498,20 @@
                                 </select>
                             </div>
 
+                            <label class="flex items-start gap-3 p-4 bg-slate-50 border-2 border-slate-200 rounded-xl hover:border-action-500 transition-colors cursor-pointer">
+                                <input type="checkbox" id="priority-build" name="priorityBuild" class="mt-0.5 w-5 h-5 accent-action-500 shrink-0">
+                                <div>
+                                    <span class="block font-black text-brand-900">Priority Build &mdash; +$25</span>
+                                    <span class="text-sm text-slate-500 font-medium">Get your website delivered first in line</span>
+                                </div>
+                            </label>
+
                             <button type="submit" id="checkout-btn" class="block w-full bg-action-500 hover:bg-action-600 text-white py-6 md:py-8 rounded-2xl font-black text-3xl md:text-4xl uppercase tracking-wide transition-all shadow-[0_8px_0_0_#cc4b0b] hover:shadow-[0_2px_0_0_#cc4b0b] hover:translate-y-[6px] active:translate-y-[6px] active:shadow-[0_2px_0_0_#cc4b0b] border-4 border-action-700 cursor-pointer disabled:opacity-50 disabled:cursor-wait">
-                                Claim $500 Setup
+                                Complete My Website Setup &mdash; $500
                             </button>
                         </form>
 
-                        <div id="form-success" class="hidden p-6 bg-green-50 border-2 border-green-300 rounded-2xl mb-6">
-                            <div class="text-green-600 font-black text-2xl mb-2">You're In!</div>
-                            <p class="text-green-700 font-medium">We received your request. A TaggleFish specialist will reach out within 24 hours to get started on your website.</p>
-                        </div>
-
-                        <div class="flex items-center justify-center gap-4">
+<div class="flex items-center justify-center gap-4">
                             <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                             <span class="text-sm font-bold text-slate-500 uppercase tracking-wider">Secure 256-Bit SSL Checkout</span>
                         </div>
@@ -627,83 +629,32 @@
     </footer>
 
 
-    <!-- Stripe Checkout via Vercel Serverless -->
     <script>
-        // ============================================================
-        // VERCEL + STRIPE SETUP
-        // ============================================================
-        // Add these Environment Variables in your Vercel Dashboard:
-        //   STRIPE_SECRET_KEY      (sk_live_... or sk_test_...)
-        //   STRIPE_PUBLISHABLE_KEY (pk_live_... or pk_test_...)
-        //   STRIPE_PRICE_ID        (price_...)
-        //
-        // Create a Product + Price in Stripe Dashboard for $500 one-time
-        // Invoice is auto-generated after payment (invoice_creation: true)
-        // ============================================================
-
         const leadForm = document.getElementById('lead-form');
         const checkoutBtn = document.getElementById('checkout-btn');
-        const formSuccess = document.getElementById('form-success');
 
-        // Handle return from Stripe payment
-        const params = new URLSearchParams(window.location.search);
-        if (params.get('success') === 'true') {
-            const offerSection = document.getElementById('offer');
-            if (offerSection) {
-                leadForm.classList.add('hidden');
-                formSuccess.classList.remove('hidden');
-                formSuccess.querySelector('div').textContent = 'Payment Received!';
-                formSuccess.querySelector('p').textContent = 'Thank you! A TaggleFish specialist will reach out within 24 hours to kick off your website build.';
-                offerSection.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-
-        leadForm.addEventListener('submit', async function(e) {
+        leadForm.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            const formData = {
-                name: document.getElementById('lead-name').value,
-                email: document.getElementById('lead-email').value,
-                phone: document.getElementById('lead-phone').value,
-                trade: document.getElementById('lead-trade').value
+            const order = {
+                name:          document.getElementById('lead-name').value.trim(),
+                email:         document.getElementById('lead-email').value.trim(),
+                phone:         document.getElementById('lead-phone').value.trim(),
+                trade:         document.getElementById('lead-trade').value,
+                priorityBuild: document.getElementById('priority-build').checked,
+                upsell1: false,
+                upsell2: false,
+                upsell3: false,
+                upsell4: false,
+                timerOffer: false,
             };
 
+            localStorage.setItem('order', JSON.stringify(order));
+            localStorage.removeItem('timer_expiry');
+
             checkoutBtn.disabled = true;
-            checkoutBtn.textContent = 'Redirecting to Checkout...';
-
-            try {
-                const response = await fetch('/api/create-checkout-session', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        customerEmail: formData.email,
-                        metadata: formData
-                    })
-                });
-
-                if (!response.ok) {
-                    throw new Error('Checkout session failed');
-                }
-
-                const session = await response.json();
-                const stripe = Stripe(session.publishableKey);
-
-                const result = await stripe.redirectToCheckout({
-                    sessionId: session.id
-                });
-
-                if (result.error) {
-                    alert(result.error.message);
-                }
-            } catch (err) {
-                // Fallback: capture lead when Stripe keys aren't configured yet
-                leadForm.classList.add('hidden');
-                formSuccess.classList.remove('hidden');
-                console.log('Lead captured:', formData);
-            } finally {
-                checkoutBtn.disabled = false;
-                checkoutBtn.textContent = 'Claim $500 Setup';
-            }
+            checkoutBtn.textContent = 'Loading...';
+            window.location.href = '/upsell-1.html';
         });
     </script>
 
