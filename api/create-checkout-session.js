@@ -10,12 +10,12 @@ module.exports = async function handler(req, res) {
   const { customerEmail, metadata, items } = req.body;
 
   const priceMap = {
-    base:          process.env.STRIPE_PRICE_BASE,
-    priorityBuild: process.env.STRIPE_PRICE_PRIORITY_BUILD,
-    upsell1:       process.env.STRIPE_PRICE_UPSELL_1,
-    upsell2:       process.env.STRIPE_PRICE_UPSELL_2,
-    upsell3:       process.env.STRIPE_PRICE_UPSELL_3,
-    upsell4:       process.env.STRIPE_PRICE_UPSELL_4,
+    base:          'price_0TPUJqrvOp8o8GzAdsHVBQeh',
+    priorityBuild: 'price_0TPULyrvOp8o8GzAe78rEJXr',
+    upsell1:       'price_0TPUNirvOp8o8GzA5RqJPhRu',
+    upsell2:       'price_0TPUOgrvOp8o8GzACP9iN1y8',
+    upsell3:       'price_0TPUQGrvOp8o8GzAeGc6zEXT',
+    upsell4:       'price_0TPURfrvOp8o8GzAhwli4Bdx',
   };
 
   const selectedKeys = Array.isArray(items) && items.length > 0 ? items : ['base'];
