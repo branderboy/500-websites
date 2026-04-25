@@ -101,7 +101,17 @@
 
     <script>
         const order = JSON.parse(localStorage.getItem('order') || '{}');
-        if (!order.email) window.location.href = '/';
+        if (!order.email) {
+            window.location.href = '/';
+        } else {
+            init();
+        }
+
+        function esc(str) {
+            const d = document.createElement('div');
+            d.appendChild(document.createTextNode(str != null ? String(str) : ''));
+            return d.innerHTML;
+        }
 
         const ITEMS = [
             { key: 'base',          label: '19-Page SEO Website',             price: 500,  always: true },
@@ -112,39 +122,43 @@
             { key: 'upsell4',       label: 'Lead Follow-Up System',            price: 885,  always: false },
         ];
 
-        const selected = ITEMS.filter(i => i.always || order[i.key]);
-        const total = selected.reduce((sum, i) => sum + i.price, 0);
+        function init() {
+            const selected = ITEMS.filter(i => i.always || order[i.key]);
+            const total = selected.reduce((sum, i) => sum + i.price, 0);
 
-        // Render order items
-        const itemsEl = document.getElementById('order-items');
-        selected.forEach(item => {
-            const row = document.createElement('div');
-            row.className = 'px-6 py-4 flex justify-between items-center';
-            row.innerHTML = `
-                <span class="flex items-center gap-2 font-medium text-slate-700">
-                    <span class="text-green-500 font-black">✓</span>
-                    ${item.label}
-                </span>
-                <span class="font-black text-brand-900">$${item.price.toLocaleString()}</span>
+            // Render order items — labels are hardcoded so safe as innerHTML; prices are numbers
+            const itemsEl = document.getElementById('order-items');
+            selected.forEach(item => {
+                const row = document.createElement('div');
+                row.className = 'px-6 py-4 flex justify-between items-center';
+                row.innerHTML = `
+                    <span class="flex items-center gap-2 font-medium text-slate-700">
+                        <span class="text-green-500 font-black">✓</span>
+                        ${item.label}
+                    </span>
+                    <span class="font-black text-brand-900">$${item.price.toLocaleString()}</span>
+                `;
+                itemsEl.appendChild(row);
+            });
+
+            document.getElementById('order-total').textContent = '$' + total.toLocaleString();
+
+            if (order.timerOffer) {
+                document.getElementById('gbp-bonus').classList.remove('hidden');
+            }
+
+            // Escape all user-supplied fields before inserting into DOM
+            document.getElementById('customer-info').innerHTML = `
+                <p class="font-black text-brand-800 mb-1">Ordering for:</p>
+                <p>${esc(order.name)} &mdash; ${esc(order.email)} &mdash; ${esc(order.phone)}</p>
+                <p class="capitalize mt-0.5">${esc((order.trade || '').replace(/-/g, ' '))}</p>
             `;
-            itemsEl.appendChild(row);
-        });
 
-        document.getElementById('order-total').textContent = '$' + total.toLocaleString();
-
-        // Show GBP bonus if timer offer was claimed
-        if (order.timerOffer) {
-            document.getElementById('gbp-bonus').classList.remove('hidden');
+            // Attach checkout handler here so it closes over `selected`
+            document.getElementById('pay-btn').onclick = function() { startCheckout(selected); };
         }
 
-        // Show customer info
-        document.getElementById('customer-info').innerHTML = `
-            <p class="font-black text-brand-800 mb-1">Ordering for:</p>
-            <p>${order.name} &mdash; ${order.email} &mdash; ${order.phone}</p>
-            <p class="capitalize mt-0.5">${order.trade.replace(/-/g, ' ')}</p>
-        `;
-
-        async function startCheckout() {
+        async function startCheckout(selected) {
             const btn = document.getElementById('pay-btn');
             const errEl = document.getElementById('error-msg');
             btn.disabled = true;
@@ -152,8 +166,14 @@
             errEl.classList.add('hidden');
 
             const selectedKeys = selected.map(i => i.key);
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 15000);
 
             try {
+                if (typeof Stripe === 'undefined') {
+                    throw new Error('Payment system failed to load. Please disable any ad blockers and try again.');
+                }
+
                 const res = await fetch('/api/create-checkout-session', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -162,17 +182,26 @@
                         metadata: { name: order.name, phone: order.phone, trade: order.trade },
                         items: selectedKeys,
                     }),
+                    signal: controller.signal,
                 });
+                clearTimeout(timeoutId);
 
-                if (!res.ok) throw new Error('Could not create checkout session');
+                if (!res.ok) {
+                    let message = 'Could not create checkout session. Please try again.';
+                    try { const body = await res.json(); if (body.error) message = body.error; } catch {}
+                    throw new Error(message);
+                }
 
                 const session = await res.json();
                 const stripe = Stripe(session.publishableKey);
                 const result = await stripe.redirectToCheckout({ sessionId: session.id });
-
                 if (result.error) throw new Error(result.error.message);
             } catch (err) {
-                errEl.textContent = err.message || 'Something went wrong. Please try again.';
+                clearTimeout(timeoutId);
+                const message = err.name === 'AbortError'
+                    ? 'Request timed out. Please check your connection and try again.'
+                    : err.message || 'Something went wrong. Please try again.';
+                errEl.textContent = message;
                 errEl.classList.remove('hidden');
                 btn.disabled = false;
                 btn.textContent = 'Complete My Order';
