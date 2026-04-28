@@ -99,13 +99,6 @@
                             <p class="text-slate-500 font-medium text-sm mt-0.5">Your lead follow-up system will be configured and connected when your site launches.</p>
                         </div>
                     </div>
-                    <div id="step-gbp" class="hidden px-6 py-5 flex gap-4 items-start">
-                        <div class="w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center font-black text-sm shrink-0 mt-0.5">✓</div>
-                        <div>
-                            <p class="font-black text-green-700">Free GBP Audit — within 48 hours of launch</p>
-                            <p class="text-slate-500 font-medium text-sm mt-0.5">We'll email you a full Google Business Profile report after your site goes live.</p>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -136,10 +129,6 @@
         if (order.upsell4) {
             document.getElementById('step-leads').classList.remove('hidden');
             document.getElementById('step-leads').classList.add('flex');
-        }
-        if (order.timerOffer) {
-            document.getElementById('step-gbp').classList.remove('hidden');
-            document.getElementById('step-gbp').classList.add('flex');
         }
 
         // Clear order from localStorage after successful completion

@@ -70,22 +70,13 @@
                 </div>
             </div>
 
-            <!-- Timer offer bonus (if claimed) -->
-            <div id="gbp-bonus" class="hidden bg-green-50 border-2 border-green-300 rounded-xl p-4 mb-6 flex items-start gap-3">
-                <span class="text-green-500 font-black text-lg shrink-0">✓</span>
-                <div>
-                    <p class="font-black text-green-800">Free GBP Audit Included</p>
-                    <p class="text-sm text-green-600 font-medium">We'll send your audit within 48 hours of your site going live.</p>
-                </div>
-            </div>
-
             <!-- Customer info recap -->
             <div id="customer-info" class="bg-brand-50 border-2 border-brand-200 rounded-xl p-4 mb-8 text-sm font-medium text-brand-700">
                 <!-- Populated by JS -->
             </div>
 
             <!-- CTA -->
-            <button id="pay-btn" onclick="startCheckout()" class="block w-full bg-action-500 hover:bg-action-600 text-white py-6 rounded-2xl font-black text-2xl uppercase tracking-wide transition-all shadow-3d-button hover:shadow-3d-button-hover hover:translate-y-[6px] active:translate-y-[6px] active:shadow-3d-button-hover border-2 border-action-700 mb-4 disabled:opacity-50 disabled:cursor-wait">
+            <button id="pay-btn" type="button" class="block w-full bg-action-500 hover:bg-action-600 text-white py-6 rounded-2xl font-black text-2xl uppercase tracking-wide transition-all shadow-3d-button hover:shadow-3d-button-hover hover:translate-y-[6px] active:translate-y-[6px] active:shadow-3d-button-hover border-2 border-action-700 mb-4 disabled:opacity-50 disabled:cursor-wait">
                 Complete My Order
             </button>
 
@@ -101,11 +92,18 @@
 
     <script>
         const order = JSON.parse(localStorage.getItem('order') || '{}');
-        if (!order.email) {
-            window.location.href = '/';
-        } else {
-            init();
-        }
+
+        const ITEMS = [
+            { key: 'base',          label: '10-Page SEO Website',                         price: 500,  always: true },
+            { key: 'priorityBuild', label: 'Priority Build',                              price: 25,   always: false },
+            { key: 'upsell1',       label: 'City Expansion Pages',                        price: 389,  always: false },
+            { key: 'upsell2',       label: 'Authority Boost',                             price: 99,   always: false },
+            { key: 'upsell3',       label: 'WordPress Elementor Kit Theme + Plugins',     price: 225,  always: false },
+            { key: 'upsell4',       label: 'Lead Follow-Up System',                       price: 885,  always: false },
+        ];
+
+        let SELECTED = [];
+        let TOTAL_LABEL = '';
 
         function esc(str) {
             const d = document.createElement('div');
@@ -113,22 +111,13 @@
             return d.innerHTML;
         }
 
-        const ITEMS = [
-            { key: 'base',          label: '10-Page SEO Website',             price: 500,  always: true },
-            { key: 'priorityBuild', label: 'Priority Build',                  price: 25,   always: false },
-            { key: 'upsell1',       label: 'City Expansion Pages',             price: 389,  always: false },
-            { key: 'upsell2',       label: 'Authority Boost',                  price: 99,   always: false },
-            { key: 'upsell3',       label: 'Theme Upgrade + Smart Plugins',    price: 225,  always: false },
-            { key: 'upsell4',       label: 'Lead Follow-Up System',            price: 885,  always: false },
-        ];
-
         function init() {
-            const selected = ITEMS.filter(i => i.always || order[i.key]);
-            const total = selected.reduce((sum, i) => sum + i.price, 0);
+            SELECTED = ITEMS.filter(i => i.always || order[i.key]);
+            const total = SELECTED.reduce((sum, i) => sum + i.price, 0);
+            TOTAL_LABEL = '$' + total.toLocaleString();
 
-            // Render order items — labels are hardcoded so safe as innerHTML; prices are numbers
             const itemsEl = document.getElementById('order-items');
-            selected.forEach(item => {
+            SELECTED.forEach(item => {
                 const row = document.createElement('div');
                 row.className = 'px-6 py-4 flex justify-between items-center';
                 row.innerHTML = `
@@ -141,31 +130,28 @@
                 itemsEl.appendChild(row);
             });
 
-            document.getElementById('order-total').textContent = '$' + total.toLocaleString();
+            document.getElementById('order-total').textContent = TOTAL_LABEL;
 
-            if (order.timerOffer) {
-                document.getElementById('gbp-bonus').classList.remove('hidden');
-            }
-
-            // Escape all user-supplied fields before inserting into DOM
             document.getElementById('customer-info').innerHTML = `
                 <p class="font-black text-brand-800 mb-1">Ordering for:</p>
                 <p>${esc(order.name)} &mdash; ${esc(order.email)} &mdash; ${esc(order.phone)}</p>
                 <p class="capitalize mt-0.5">${esc((order.trade || '').replace(/-/g, ' '))}</p>
             `;
 
-            // Attach checkout handler here so it closes over `selected`
-            document.getElementById('pay-btn').onclick = function() { startCheckout(selected); };
+            const btn = document.getElementById('pay-btn');
+            btn.textContent = 'Complete My Order — ' + TOTAL_LABEL;
+            btn.addEventListener('click', startCheckout);
         }
 
-        async function startCheckout(selected) {
+        async function startCheckout() {
             const btn = document.getElementById('pay-btn');
             const errEl = document.getElementById('error-msg');
+            if (btn.disabled) return;
             btn.disabled = true;
             btn.textContent = 'Redirecting to secure payment...';
             errEl.classList.add('hidden');
 
-            const selectedKeys = selected.map(i => i.key);
+            const selectedKeys = SELECTED.map(i => i.key);
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), 15000);
 
@@ -204,8 +190,14 @@
                 errEl.textContent = message;
                 errEl.classList.remove('hidden');
                 btn.disabled = false;
-                btn.textContent = 'Complete My Order';
+                btn.textContent = 'Complete My Order — ' + TOTAL_LABEL;
             }
+        }
+
+        if (!order.email) {
+            window.location.href = '/';
+        } else {
+            init();
         }
     </script>
 
