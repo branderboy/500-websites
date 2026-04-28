@@ -59,7 +59,7 @@ module.exports = async function handler(req, res) {
       cancel_url:  `${origin}/checkout.html`,
     });
 
-    return res.status(200).json({ id: session.id, publishableKey: PUBLISHABLE_KEY });
+    return res.status(200).json({ id: session.id, url: session.url, publishableKey: PUBLISHABLE_KEY });
   } catch (err) {
     console.error('Stripe error:', err);
     return res.status(500).json({ error: 'Payment session could not be created. Please try again.' });
